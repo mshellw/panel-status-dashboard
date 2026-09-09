@@ -14,6 +14,10 @@ console.log('Response status:', response.status);
 console.log('Response data:', data);
 const records = data.records || [];
 console.log('Records found:', records.length);
+if (records.length > 0) {
+  console.log('First record fields:', Object.keys(records[0].fields));
+  console.log('First record data:', records[0].fields);
+}
 
     const panels = records.map(r => {
       const id = r.fields.ID || '';
