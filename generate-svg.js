@@ -5,25 +5,25 @@ const BASE_ID = 'appPMuMIKkuahUkmG';
 
 async function generateSVG() {
   try {
-const response = await fetch(
-  return { id, row: parseInt(row), col: parseInt(col), cut: r.fields.Cut_Boolean === 1 };
-  { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
-);
-const data = await response.json();
-console.log('Response status:', response.status);
-console.log('Response data:', data);
-const records = data.records || [];
-console.log('Records found:', records.length);
-if (records.length > 0) {
-  console.log('First record fields:', Object.keys(records[0].fields));
-  console.log('First record data:', records[0].fields);
-}
+    const response = await fetch(
+      `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID&fields=Type&fields=Cut_Boolean&pageSize=100`,
+      { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+    );
+    const data = await response.json();
+    console.log('Response status:', response.status);
+    const records = data.records || [];
+    console.log('Records found:', records.length);
 
     const panels = records.map(r => {
       const id = r.fields.ID || '';
       const match = id.match(/^(\d+)-(\d+)/);
       const [, row, col] = match || ['', '0', '0'];
-      return { id, row: parseInt(row), col: parseInt(col), cut: !!r.fields.Cut };
+      return {
+        id,
+        row: parseInt(row),
+        col: parseInt(col),
+        cut: r.fields.Cut_Boolean === 1
+      };
     });
 
     const total = panels.length;
