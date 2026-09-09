@@ -41,7 +41,7 @@ async function generateSVG() {
           const y = 92 + (12 - row) * rowGap;
           const fill = panel?.cut ? '#22c55e' : '#ffffff';
           const stroke = panel?.cut ? '#16a34a' : '#d1d5db';
-          const labelText = panel?.id || `${row}-${col}*`;
+          const labelText = panel?.id ? panel.id.split('-').slice(0, 2).join('-') : `${row}-${col}*`;
           return `<rect x="${x}" y="${y}" width="20" height="48" fill="${fill}" stroke="${stroke}" stroke-width="1"/><text x="${x + 10}" y="${y + 24}" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">${labelText}</text>`;
         })
       ).join('\n');
