@@ -19,18 +19,16 @@
     </div>
   </div>
 
-  <script>
+<script>
+  setInterval(() => {
+    document.getElementById('content').innerHTML = '';
     fetch('panel-grid.svg?t=' + Date.now())
       .then(r => r.text())
       .then(svg => {
         document.getElementById('content').innerHTML = svg;
-        
-        // Extract timestamp from SVG
-        const match = svg.match(/Updated: ([^<]+)</);
-        if (match) {
-          document.getElementById('updated').textContent = match[1];
-        }
       });
-  </script>
+  }, 5 * 60 * 1000);
+</script>
+  
 </body>
 </html>
