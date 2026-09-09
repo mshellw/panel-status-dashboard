@@ -5,12 +5,15 @@ const BASE_ID = 'appPMuMIKkuahUkmG';
 
 async function generateSVG() {
   try {
-    const response = await fetch(
-      `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID,Type,Cut&pageSize=100`,
-      { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
-    );
-    const data = await response.json();
-    const records = data.records || [];
+const response = await fetch(
+  `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID,Type,Cut&pageSize=100`,
+  { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
+);
+const data = await response.json();
+console.log('Response status:', response.status);
+console.log('Response data:', data);
+const records = data.records || [];
+console.log('Records found:', records.length);
 
     const panels = records.map(r => {
       const id = r.fields.ID || '';
