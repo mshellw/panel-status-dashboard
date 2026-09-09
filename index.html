@@ -20,7 +20,7 @@
   </div>
 
   <script>
-    fetch('panel-grid.svg')
+    fetch('panel-grid.svg?t=' + Date.now())
       .then(r => r.text())
       .then(svg => {
         document.getElementById('content').innerHTML = svg;
