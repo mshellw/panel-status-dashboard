@@ -1,0 +1,30 @@
+name: Update Panel Grid
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour on the hour
+  workflow_dispatch:  # Manual trigger button
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Fetch panels and generate SVG
+        env:
+          AIRTABLE_TOKEN: ${{ secrets.AIRTABLE_TOKEN }}
+        run: node generate-svg.js
+      
+      - name: Commit and push
+        run: |
+          git config user.name "Panel Bot"
+          git config user.email "bot@example.com"
+          git add panel-grid.svg
+          git commit -m "Update panel grid - $(date)" || echo "No changes"
+          git push
