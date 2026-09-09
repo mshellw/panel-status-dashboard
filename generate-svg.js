@@ -6,7 +6,7 @@ const BASE_ID = 'appPMuMIKkuahUkmG';
 async function generateSVG() {
   try {
 const response = await fetch(
-  `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID&fields=Type&fields=Cut&pageSize=100`,
+  return { id, row: parseInt(row), col: parseInt(col), cut: r.fields.Cut_Boolean === 1 };
   { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
 );
 const data = await response.json();
