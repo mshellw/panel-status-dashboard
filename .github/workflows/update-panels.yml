@@ -2,7 +2,7 @@ name: Update Panel Grid
 
 on:
   schedule:
-    - cron: '20 * * * *'
+    - cron: '*/15 * * * *'
   workflow_dispatch:
 
 permissions:
