@@ -77,7 +77,7 @@
 <rect x="470" y="556" width="20" height="48" fill="#22c55e" stroke="#16a34a" stroke-width="1"/><text x="480" y="580" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">4-7</text>
 <rect x="110" y="614" width="20" height="48" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/><text x="120" y="638" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">3-1*</text>
 <rect x="170" y="614" width="20" height="48" fill="#22c55e" stroke="#16a34a" stroke-width="1"/><text x="180" y="638" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">3-2</text>
-<rect x="230" y="614" width="20" height="48" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/><text x="240" y="638" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">3-3</text>
+<rect x="230" y="614" width="20" height="48" fill="#22c55e" stroke="#16a34a" stroke-width="1"/><text x="240" y="638" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">3-3</text>
 <rect x="290" y="614" width="20" height="48" fill="#22c55e" stroke="#16a34a" stroke-width="1"/><text x="300" y="638" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">3-4</text>
 <rect x="350" y="614" width="20" height="48" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/><text x="360" y="638" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">3-5</text>
 <rect x="410" y="614" width="20" height="48" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/><text x="420" y="638" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">3-6</text>
@@ -110,7 +110,7 @@
 <text x="30" y="116" style="font-size: 11px; fill: #9ca3af; text-anchor: end; dominant-baseline: middle;">12</text>
   <rect x="40" y="790" width="400" height="270" fill="#f5f5f5" stroke="0.5px solid #e5e7eb" stroke-width="0.5" rx="8"/>
   <text x="60" y="815" style="font-size: 13px; font-weight: 500; fill: #1f2937;">Assembly Progress Summary</text>
-  <text x="60" y="840" style="font-size: 13px; fill: #4b5563;"><tspan font-weight="500" fill="#22c55e">35 panels assembled</tspan> / 72 logged</text>
-  <text x="60" y="860" style="font-size: 13px; fill: #4b5563;">Completion rate: <tspan font-weight="500">49%</tspan></text>
-  <text x="60" y="885" style="font-size: 11px; fill: #9ca3af;">Updated: 9/12/2026, 2:19:18 PM</text>
+  <text x="60" y="840" style="font-size: 13px; fill: #4b5563;"><tspan font-weight="500" fill="#22c55e">36 panels assembled</tspan> / 72 logged</text>
+  <text x="60" y="860" style="font-size: 13px; fill: #4b5563;">Completion rate: <tspan font-weight="500">50%</tspan></text>
+  <text x="60" y="885" style="font-size: 11px; fill: #9ca3af;">Updated: 9/12/2026, 5:23:59 PM</text>
 </svg>
