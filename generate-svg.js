@@ -14,21 +14,22 @@ async function generateSVG() {
     const records = data.records || [];
     console.log('Records found:', records.length);
 
-    const panels = allRecordsrecords.map(r => {
-      const id = r.getCellValue('ID') || '';
+    const panels = records.map(r => {
+      const id = r.fields.ID || '';
       const match = id.match(/^(\d+)-(\d+)/);
       const [, row, col] = match || ['', '0', '0'];
       return {
         id,
         row: parseInt(row),
         col: parseInt(col),
-        cut: r.fields.Cut_Boolean === 1
+        cut: r.fields.Cut_Boolean === 1,
         delivered: r.fields.Delivered_Boolean === 1
       };
     });
 
     const total = panels.length;
     const cut = panels.filter(p => p.cut).length;
+    const delivered = panels.filter(p => p.delivered).length;
     const percentage = total > 0 ? Math.round((cut / total) * 100) : 0;
     const timestamp = new Date().toLocaleString();
     const colGap = 60;
@@ -43,12 +44,11 @@ async function generateSVG() {
           const fill = panel?.cut ? '#22c55e' : '#ffffff';
           const stroke = panel?.cut ? '#16a34a' : '#d1d5db';
           const labelText = panel?.id ? panel.id.split('-').slice(0, 2).join('-') : `${row}-${col}*`;
-
-          // Add Thick Red border if delivered
-          const borderStroke = panel?delivered ? 'red' : 'none';
-          const borderWidth = panel?.delivered ? '3' : '0';
           
-          return `<rect x="${x}" y="${y}" width="20" height="48" fill="${fill}" stroke="${stroke}" stroke-width="1"/><text x="${x + 10}" y="${y + 24}" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">${labelText}</text>`;
+          // Red border if delivered
+          const deliveredBorder = panel?.delivered ? `<rect x="${x - 2}" y="${y - 2}" width="24" height="52" fill="none" stroke="#dc2626" stroke-width="3" rx="2"/>` : '';
+          
+          return `<rect x="${x}" y="${y}" width="20" height="48" fill="${fill}" stroke="${stroke}" stroke-width="1"/>${deliveredBorder}<text x="${x + 10}" y="${y + 24}" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">${labelText}</text>`;
         })
       ).join('\n');
 
@@ -62,23 +62,33 @@ async function generateSVG() {
 
     const svgContent = `<svg viewBox="0 0 500 1100" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; height: auto; display: block;">
   <text x="250" y="20" style="font-size: 16px; font-weight: 500; text-anchor: middle; fill: #1f2937;">218 Madison — Panel Assembly Status</text>
-  <text x="250" y="35" style="font-size: 12px; text-anchor: middle; fill: #6b7280;">Green = Cut, White = Pending</text>
+  <text x="250" y="35" style="font-size: 12px; text-anchor: middle; fill: #6b7280;">Green = Cut, White = Pending, Red Border = Delivered</text>
+  
   <rect x="40" y="40" width="12" height="28.8" fill="#22c55e" stroke="#16a34a" stroke-width="1"/>
   <text x="60" y="54" style="font-size: 11px; fill: #1f2937;">Assembled (Cut)</text>
+  
   <rect x="240" y="40" width="12" height="28.8" fill="#ffffff" stroke="#d1d5db" stroke-width="1"/>
   <text x="260" y="54" style="font-size: 11px; fill: #1f2937;">Pending</text>
+
+  <rect x="40" y="72" width="12" height="28.8" fill="none" stroke="#dc2626" stroke-width="3"/>
+  <text x="60" y="86" style="font-size: 11px; fill: #1f2937;">Delivered</text>
+
   ${columnLabels}
+
   ${panelElements}
+
   ${rowLabels}
-  <rect x="40" y="790" width="400" height="270" fill="#f5f5f5" stroke="0.5px solid #e5e7eb" stroke-width="0.5" rx="8"/>
+
+  <rect x="40" y="790" width="400" height="290" fill="#f5f5f5" stroke="0.5px solid #e5e7eb" stroke-width="0.5" rx="8"/>
   <text x="60" y="815" style="font-size: 13px; font-weight: 500; fill: #1f2937;">Assembly Progress Summary</text>
   <text x="60" y="840" style="font-size: 13px; fill: #4b5563;"><tspan font-weight="500" fill="#22c55e">${cut} panels assembled</tspan> / ${total} logged</text>
-  <text x="60" y="860" style="font-size: 13px; fill: #4b5563;">Completion rate: <tspan font-weight="500">${percentage}%</tspan></text>
-  <text x="60" y="885" style="font-size: 11px; fill: #9ca3af;">Updated: ${timestamp}</text>
+  <text x="60" y="860" style="font-size: 13px; fill: #4b5563;">Delivered: <tspan font-weight="500" fill="#dc2626">${delivered} panels</tspan></text>
+  <text x="60" y="880" style="font-size: 13px; fill: #4b5563;">Completion rate: <tspan font-weight="500">${percentage}%</tspan></text>
+  <text x="60" y="905" style="font-size: 11px; fill: #9ca3af;">Updated: ${timestamp}</text>
 </svg>`;
 
     fs.writeFileSync('panel-grid.svg', svgContent);
-    console.log(`✅ Generated SVG: ${cut}/${total} assembled (${percentage}%)`);
+    console.log(`✅ Generated SVG: ${cut}/${total} assembled, ${delivered} delivered (${percentage}%)`);
   } catch (error) {
     console.error('❌ Error:', error);
     process.exit(1);
