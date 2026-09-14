@@ -6,7 +6,7 @@ const BASE_ID = 'appPMuMIKkuahUkmG';
 async function generateSVG() {
   try {
     const response = await fetch(
-      `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID&fields=Type&fields=Cut_Boolean&fields=Delivered_Boolean&pageSize=100`,
+      `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID&fields=Type&fields=Cut_Boolean&fields=Delivered_MW&pageSize=100`,
       { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
     );
     const data = await response.json();
@@ -23,7 +23,7 @@ async function generateSVG() {
         row: parseInt(row),
         col: parseInt(col),
         cut: r.fields.Cut_Boolean === 1,
-        delivered: r.fields.Delivered_Boolean === 1
+        delivered: r.fields.Delivered_MW === true
       };
     });
 
