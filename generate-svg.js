@@ -6,7 +6,7 @@ const BASE_ID = 'appPMuMIKkuahUkmG';
 async function generateSVG() {
   try {
     const response = await fetch(
-      `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID&fields=Type&fields=Cut_Boolean&pageSize=100`,
+      `https://api.airtable.com/v0/${BASE_ID}/ACTIVE%20Panels?fields=ID&fields=Type&fields=Cut_Boolean&fields=Delivered_Boolean&pageSize=100`,
       { headers: { Authorization: `Bearer ${AIRTABLE_TOKEN}` } }
     );
     const data = await response.json();
@@ -14,8 +14,8 @@ async function generateSVG() {
     const records = data.records || [];
     console.log('Records found:', records.length);
 
-    const panels = records.map(r => {
-      const id = r.fields.ID || '';
+    const panels = allRecordsrecords.map(r => {
+      const id = r.getCellValue('ID') || '';
       const match = id.match(/^(\d+)-(\d+)/);
       const [, row, col] = match || ['', '0', '0'];
       return {
@@ -23,6 +23,7 @@ async function generateSVG() {
         row: parseInt(row),
         col: parseInt(col),
         cut: r.fields.Cut_Boolean === 1
+        delivered: r.fields.Delivered_Boolean === 1
       };
     });
 
@@ -42,6 +43,11 @@ async function generateSVG() {
           const fill = panel?.cut ? '#22c55e' : '#ffffff';
           const stroke = panel?.cut ? '#16a34a' : '#d1d5db';
           const labelText = panel?.id ? panel.id.split('-').slice(0, 2).join('-') : `${row}-${col}*`;
+
+          // Add Thick Red border if delivered
+          const borderStroke = panel?delivered ? 'red' : 'none';
+          const borderWidth = panel?.delivered ? '3' : '0';
+          
           return `<rect x="${x}" y="${y}" width="20" height="48" fill="${fill}" stroke="${stroke}" stroke-width="1"/><text x="${x + 10}" y="${y + 24}" style="font-size: 10px; font-weight: 500; text-anchor: middle; dominant-baseline: middle; fill: #000;">${labelText}</text>`;
         })
       ).join('\n');
