@@ -83,7 +83,7 @@ async function generateSVG() {
   <text x="60" y="815" style="font-size: 13px; font-weight: 500; fill: #1f2937;">Assembly Progress Summary</text>
   <text x="60" y="840" style="font-size: 13px; fill: #4b5563;"><tspan font-weight="500" fill="#22c55e">${cut} panels assembled</tspan> / ${total} logged</text>
   <text x="60" y="860" style="font-size: 13px; fill: #4b5563;">Delivered: <tspan font-weight="500" fill="#dc2626">${delivered} panels</tspan></text>
-  <text x="60" y="880" style="font-size: 13px; fill: #4b5563;">Completion rate: <tspan font-weight="500">${percentage}%</tspan></text>
+ //  <text x="60" y="880" style="font-size: 13px; fill: #4b5563;">Completion rate: <tspan font-weight="500">${percentage}%</tspan></text>
   <text x="60" y="905" style="font-size: 11px; fill: #9ca3af;">Updated: ${timestamp}</text>
 </svg>`;
 
